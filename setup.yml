@@ -1,0 +1,132 @@
+---
+- name: Configuration de mon Mac
+  hosts: localhost
+  connection: local
+  become: false  # Pas besoin de sudo pour la plupart des actions
+
+  vars:
+    homebrew_packages:
+      - git
+      - stow
+      - tree
+      - telnet
+      - terraform
+    homebrew_casks:
+      - 4k-video-downloader+
+      - aldente
+      - chatgpt
+      - cleanmymac
+      - dbeaver-community
+      - discord
+      - google-chrome
+      - linearmouse
+      - maccy
+      - windows-app
+      - obsidian
+      - vivid
+      - vlc
+      - visual-studio-code
+    mas_apps:
+      - { name: "Dashlane Password Manager", id: 517914548 }
+      - { name: "Jomo - Meilleur temps d'écran", id: 1609960918 }
+      - { name: "LanScan", id: 472226235 }
+      - { name: "WireGuard", id: 1451685025 }
+      - { name: "Transmit 5", id: 1436522307 }
+    dotfiles_repo: "https://github.com/GL0WIK/dotfiles.git"
+    dotfiles_path: "{{ ansible_env.HOME }}/.dotfiles"
+
+  tasks:
+
+    - name: "🔧 Installer Homebrew"
+      shell: |
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      args:
+        creates: /opt/homebrew/bin/brew  # Ne s'exécute que si Homebrew n'est pas déjà installé
+
+    - name: "🔄 Mettre à jour Homebrew"
+      command: brew update
+
+    - name: "🍺 Installer des paquets Homebrew"
+      homebrew:
+        name: "{{ homebrew_packages }}"
+        state: present
+
+    - name: "📦 Installer des applications Homebrew Cask"
+      homebrew_cask:
+        name: "{{ homebrew_casks }}"
+        state: present
+
+    - name: "🛒 Installer des applications Mac App Store (mas-cli)"
+      command: "mas install {{ item.id }}"
+      loop: "{{ mas_apps }}"
+      ignore_errors: true  # Évite que le playbook échoue si une app est déjà installée
+
+    - name: "📂 Cloner les dotfiles"
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_path }}"
+        version: main
+        update: yes
+
+    - name: "🔗 Créer les liens symboliques pour les dotfiles"
+      file:
+        src: "{{ dotfiles_path }}/{{ item }}"
+        dest: "{{ ansible_env.HOME }}/{{ item }}"
+        state: link
+        force: yes
+      loop:
+        - .gitconfig
+
+    - name: "⚙️ Modifier la configuration système (defaults write)"
+      shell: |
+        defaults write com.apple.finder AppleShowAllFiles -bool true
+      args:
+        executable: /bin/bash
+
+    - name: "🔄 Lancer le playbook de configuration du clavier"
+      import_playbook: keyboard_setup.yml
+
+    - name: "🖱️ Lancer le playbook de configuration du trackpad et de la souris"
+      import_playbook: trackpad_and_mouse_setup.yml
+
+    - name: "📂 Lancer le playbook de configuration du Dock"
+      import_playbook: dock_setup.yml
+
+    - name: "🔁 Redémarrer le Dock et Finder"
+      command: killall Dock Finder
+      ignore_errors: true  # Ignore l'erreur si le processus n'existe pas
+
+    - name: "🔑 Générer une nouvelle clé SSH"
+      command: ssh-keygen -t ed25519 "{{ ansible_env.HOME }}/.ssh/id_rsa" -N ""
+      when: not ssh_key.stat.exists
+
+    - name: "📤 Lire la clé publique SSH"
+      command: cat "{{ ansible_env.HOME }}/.ssh/ed25519.pub"
+      register: ssh_pub_key
+
+    - name: "🔒 Définir les permissions correctes sur les fichiers SSH"
+      file:
+        path: "{{ ansible_env.HOME }}/.ssh"
+        state: directory
+        mode: '0700'
+
+    - name: "🔒 Définir les permissions correctes sur la clé privée"
+      file:
+        path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+        state: file
+        mode: '0600'
+
+    - name: "🔒 Définir les permissions correctes sur la clé publique"
+      file:
+        path: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+        state: file
+        mode: '0644'
+
+    - name: "🚀 Afficher la clé publique SSH"
+      debug:
+        msg: "Clé SSH : {{ ssh_pub_key.stdout }}"
+
+  post_tasks:
+    - name: "✅ Installation terminée"
+      debug:
+        msg: "La configuration de ton Mac est terminée ! Redémarre pour appliquer tous les changements."

@@ -1,0 +1,16 @@
+---
+  tasks:
+    - name: "⚡ Régler la vitesse de répétition des touches à 0 (maximum)"
+      command: defaults write -g KeyRepeat -int 0
+
+    - name: "⏳ Réduire le délai avant la répétition des touches à 15"
+      command: defaults write -g InitialKeyRepeat -int 15
+
+    - name: "✍️ Désactiver la correction automatique"
+      command: defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+
+    - name: "🔄 Échanger la touche Control et Fn"
+      command: hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x7000000e0, "HIDKeyboardModifierMappingDst":0x7000000e3},{"HIDKeyboardModifierMappingSrc":0x7000000e3, "HIDKeyboardModifierMappingDst":0x7000000e0}]}'
+
+    - name: "🔄 Appliquer les modifications"
+      command: killall SystemUIServer
