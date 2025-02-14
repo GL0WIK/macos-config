@@ -19,7 +19,7 @@ brew install git ansible stow
 
 # Cloner le repo si nécessaire
 if [ ! -d "MACOS-CONFIG" ]; then
-    git clone https://github.com/TON-REPO/MACOS-CONFIG.git
+    git clone https://github.com/GL0WIK/macos-config.git
 fi
 
 # Aller dans le dossier
