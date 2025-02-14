@@ -14,18 +14,9 @@ fi
 echo "📦 Installation de Git et Ansible..."
 brew install git ansible stow
 
-# 3️⃣ Clonage du dépôt de dotfiles
-DOTFILES_DIR="$HOME/.dotfiles"
-if [ ! -d "$DOTFILES_DIR" ]; then
-    echo "📂 Clonage des dotfiles..."
-    git clone https://github.com/ton-repo/dotfiles.git "$DOTFILES_DIR"
-else
-    echo "✅ Les dotfiles sont déjà présents"
-fi
 
-# 4️⃣ Lancer Ansible pour configurer le Mac
+# 3️⃣ Lancer Ansible pour configurer le Mac
 echo "⚙️ Lancement d'Ansible pour appliquer la configuration..."
-cd "$DOTFILES_DIR"
 ansible-playbook mac_setup.yml --ask-become-pass
 
 echo "✅ Configuration terminée ! Redémarre ton Mac pour appliquer tous les changements."
