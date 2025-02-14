@@ -1,57 +1,56 @@
 ---
-  tasks:
-    - name: "📥 Installer dockutil"
-      homebrew:
-        name: dockutil
-        state: present
-    
-    - name: "🗑️ Vider le Dock existant"
-      command: dockutil --remove all --no-restart
+- name: "📥 Installer dockutil"
+  homebrew:
+    name: dockutil
+    state: present
 
-    - name: "📌 Masquer automatiquement le Dock"
-      command: defaults write com.apple.dock autohide -bool true
+- name: "🗑️ Vider le Dock existant"
+  command: dockutil --remove all --no-restart
 
-    - name: "⚡ Réduction du délai avant l'affichage du Dock"
-      command: defaults write com.apple.dock autohide-delay -float 0
+- name: "📌 Masquer automatiquement le Dock"
+  command: defaults write com.apple.dock autohide -bool true
 
-    - name: "⚡ Accélérer l'animation du Dock"
-      command: defaults write com.apple.dock autohide-time-modifier -float 0.4
+- name: "⚡ Réduction du délai avant l'affichage du Dock"
+  command: defaults write com.apple.dock autohide-delay -float 0
 
-    - name: "🔍 Activer la magnification du Dock"
-      command: defaults write com.apple.dock magnification -bool true
+- name: "⚡ Accélérer l'animation du Dock"
+  command: defaults write com.apple.dock autohide-time-modifier -float 0.4
 
-    - name: "📏 Définir la taille des icônes"
-      command: defaults write com.apple.dock tilesize -int 50
+- name: "🔍 Activer la magnification du Dock"
+  command: defaults write com.apple.dock magnification -bool true
 
-    - name: "📏 Définir la taille maximale des icônes lors du survol"
-      command: defaults write com.apple.dock largesize -int 150
+- name: "📏 Définir la taille des icônes"
+  command: defaults write com.apple.dock tilesize -int 50
 
-    - name: "🎭 Définir l'effet de réduction à 'genie'"
-      command: defaults write com.apple.dock mineffect -string "genie"
+- name: "📏 Définir la taille maximale des icônes lors du survol"
+  command: defaults write com.apple.dock largesize -int 150
 
-    - name: "🚫 Désactiver l'affichage des applications récentes"
-      command: defaults write com.apple.dock show-recents -bool false
+- name: "🎭 Définir l'effet de réduction à 'genie'"
+  command: defaults write com.apple.dock mineffect -string "genie"
 
-    - name: "📌 Positionner le Dock à gauche"
-      command: defaults write com.apple.dock orientation -string "left"
+- name: "🚫 Désactiver l'affichage des applications récentes"
+  command: defaults write com.apple.dock show-recents -bool false
 
-    - name: "🔄 Désactiver la réorganisation automatique des bureaux"
-      command: defaults write com.apple.dock mru-spaces -bool false
+- name: "📌 Positionner le Dock à gauche"
+  command: defaults write com.apple.dock orientation -string "left"
 
-    - name: "✅ Afficher les indicateurs sous les applications ouvertes"
-      command: defaults write com.apple.dock show-process-indicators -bool true
+- name: "🔄 Désactiver la réorganisation automatique des bureaux"
+  command: defaults write com.apple.dock mru-spaces -bool false
 
-    - name: "➕ Ajouter Launchpad au Dock"
-      command: dockutil --add "/System/Applications/Launchpad.app" --position 1 --no-restart
+- name: "✅ Afficher les indicateurs sous les applications ouvertes"
+  command: defaults write com.apple.dock show-process-indicators -bool true
 
-    - name: "➕ Ajouter Obsidian au Dock"
-      command: dockutil --add "/Applications/Obsidian.app" --position 2 --no-restart
+- name: "➕ Ajouter Launchpad au Dock"
+  command: dockutil --add "/System/Applications/Launchpad.app" --position 1 --no-restart
 
-    - name: "➕ Ajouter ChatGPT au Dock"
-      command: dockutil --add "/Applications/ChatGPT.app" --position 3 --no-restart
+- name: "➕ Ajouter Obsidian au Dock"
+  command: dockutil --add "/Applications/Obsidian.app" --position 2 --no-restart
 
-    - name: "➕ Ajouter Safari au Dock"
-      command: dockutil --add "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/" --position 4 --no-restart
+- name: "➕ Ajouter ChatGPT au Dock"
+  command: dockutil --add "/Applications/ChatGPT.app" --position 3 --no-restart
 
-    - name: "🔄 Rafraîchir le Dock"
-      command: killall Dock
+- name: "➕ Ajouter Safari au Dock"
+  command: dockutil --add "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/" --position 4 --no-restart
+
+- name: "🔄 Rafraîchir le Dock"
+  command: killall Dock

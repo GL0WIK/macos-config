@@ -1,25 +1,24 @@
 ---
-  tasks:
-    - name: "🖱️ Activer le tap-to-click"
-      command: defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+- name: "🖱️ Activer le tap-to-click"
+  command: defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 
-    - name: "🤘 Activer le glissement à trois doigts"
-      command: defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+- name: "🤘 Activer le glissement à trois doigts"
+  command: defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 
-    - name: "🖖 Configurer les gestes à quatre doigts (horizontal)"
-      command: defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 2
+- name: "🖖 Configurer les gestes à quatre doigts (horizontal)"
+  command: defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerHorizSwipeGesture -int 2
 
-    - name: "🖖 Configurer les gestes à quatre doigts (vertical)"
-      command: defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
+- name: "🖖 Configurer les gestes à quatre doigts (vertical)"
+  command: defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 2
 
-    - name: "✌️ Activer le double tap à deux doigts"
-      command: defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -bool true
+- name: "✌️ Activer le double tap à deux doigts"
+  command: defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -bool true
 
-    - name: "➡️ Désactiver le balayage à deux doigts depuis le bord droit"
-      command: defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 0
+- name: "➡️ Désactiver le balayage à deux doigts depuis le bord droit"
+  command: defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 0
 
-    - name: "🚀 Désactiver l'accélération du pointeur"
-      command: defaults write .GlobalPreferences com.apple.mouse.scaling -1
+- name: "🚀 Désactiver l'accélération du pointeur"
+  command: defaults write .GlobalPreferences com.apple.mouse.scaling -1
 
-    - name: "🔄 Appliquer les modifications"
-      command: killall SystemUIServer
+- name: "🔄 Appliquer les modifications"
+  command: killall SystemUIServer

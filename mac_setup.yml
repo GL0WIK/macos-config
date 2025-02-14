@@ -83,13 +83,13 @@
         executable: /bin/bash
 
     - name: "🔄 Lancer le playbook de configuration du clavier"
-      import_playbook: keyboard_setup.yml
+      include_tasks: keyboard_setup.yml
 
     - name: "🖱️ Lancer le playbook de configuration du trackpad et de la souris"
-      import_playbook: trackpad_and_mouse_setup.yml
+      include_tasks: trackpad_and_mouse_setup.yml
 
     - name: "📂 Lancer le playbook de configuration du Dock"
-      import_playbook: dock_setup.yml
+      include_tasks: dock_setup.yml
 
     - name: "🔁 Redémarrer le Dock et Finder"
       command: killall Dock Finder
