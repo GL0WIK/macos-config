@@ -17,6 +17,13 @@ fi
 echo "📦 Installation de Git et Ansible..."
 brew install git ansible stow
 
+# Cloner le repo si nécessaire
+if [ ! -d "MACOS-CONFIG" ]; then
+    git clone https://github.com/TON-REPO/MACOS-CONFIG.git
+fi
+
+# Aller dans le dossier
+cd MACOS-CONFIG
 
 # 3️⃣ Lancer Ansible pour configurer le Mac
 echo "⚙️ Lancement d'Ansible pour appliquer la configuration..."
