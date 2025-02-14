@@ -6,6 +6,8 @@ echo "🚀 Début de la configuration du Mac..."
 if ! command -v brew &>/dev/null; then
     echo "🍺 Installation de Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    brew --version
 else
     echo "✅ Homebrew est déjà installé"
 fi
