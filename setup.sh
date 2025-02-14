@@ -10,6 +10,7 @@ if ! command -v brew &>/dev/null; then
     brew --version
 else
     echo "✅ Homebrew est déjà installé"
+    brew --version
 fi
 
 # 2️⃣ Installation de Git et Ansible
