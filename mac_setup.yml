@@ -8,6 +8,7 @@
     homebrew_packages:
       - git
       - tree
+      - mas
       - telnet
       - terraform
     homebrew_casks:
@@ -45,6 +46,15 @@
 
     - name: "🔄 Mettre à jour Homebrew"
       command: brew update
+
+    - name: 💻 Ajouter Homebrew au PATH dans .zprofile
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.zprofile"
+        line: 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+        state: present
+
+    - name: 🧠 Ajouter Homebrew au PATH pour la session courante
+      shell: eval "$(/opt/homebrew/bin/brew shellenv)"
 
     - name: "🍺 Installer des paquets Homebrew"
       homebrew:
