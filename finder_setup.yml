@@ -1,82 +1,73 @@
 ---
-- name: Configure Finder preferences
-  hosts: localhost
-  connection: local
-  gather_facts: false
+- name: Hide desktop icons
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: CreateDesktop
+    type: bool
+    value: false
 
-  vars:
-    domain: com.apple.finder
+- name: Show Path Bar
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowPathbar
+    type: bool
+    value: true
 
-  tasks:
-    - name: Hide desktop icons
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: CreateDesktop
-        type: bool
-        value: false
+- name: Hide Recent Tags
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowRecentTags
+    type: bool
+    value: false
 
-    - name: Show Path Bar
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowPathbar
-        type: bool
-        value: true
+- name: Hide hard drives on desktop
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowHardDrivesOnDesktop
+    type: bool
+    value: false
 
-    - name: Hide Recent Tags
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowRecentTags
-        type: bool
-        value: false
+- name: Hide external hard drives on desktop
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: false
 
-    - name: Hide hard drives on desktop
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowHardDrivesOnDesktop
-        type: bool
-        value: false
+- name: Hide removable media on desktop
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: false
 
-    - name: Hide external hard drives on desktop
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowExternalHardDrivesOnDesktop
-        type: bool
-        value: false
+- name: Hide mounted servers on desktop
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowMountedServersOnDesktop
+    type: bool
+    value: false
 
-    - name: Hide removable media on desktop
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowRemovableMediaOnDesktop
-        type: bool
-        value: false
+- name: Set default view style to icon view
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: FXPreferredViewStyle
+    type: string
+    value: "icnv"
 
-    - name: Hide mounted servers on desktop
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowMountedServersOnDesktop
-        type: bool
-        value: false
+- name: Set default Go to Folder location to /Library
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: GoToField
+    type: string
+    value: "/Library"
 
-    - name: Set default view style to icon view
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: FXPreferredViewStyle
-        type: string
-        value: "icnv"
+- name: Show Finder Status Bar
+  community.general.mac_defaults:
+    domain: "{{ domain }}"
+    key: ShowStatusBar
+    type: bool
+    value: true
 
-    - name: Set default Go to Folder location to /Library
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: GoToField
-        type: string
-        value: "/Library"
-
-    - name: Show Finder Status Bar
-      community.general.mac_defaults:
-        domain: "{{ domain }}"
-        key: ShowStatusBar
-        type: bool
-        value: true
-
-    - name: Restart Finder to apply changes
-      ansible.builtin.shell: killall Finder || true
+- name: Restart Finder to apply changes
+  ansible.builtin.shell: killall Finder || true
