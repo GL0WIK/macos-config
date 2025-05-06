@@ -28,3 +28,9 @@
 
 - name: "📊 Afficher la barre d'état du Finder"
   command: defaults write com.apple.finder ShowStatusBar -bool true
+
+- name: "📂 Ouvrir le Finder dans le dossier Documents (type)"
+  command: defaults write com.apple.finder NewWindowTarget -string PfDo
+
+- name: "📂 Ouvrir le Finder dans le dossier Documents (chemin)"
+  command: defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
