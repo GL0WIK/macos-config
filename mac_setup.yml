@@ -92,6 +92,9 @@
     - name: "📂 Lancer le playbook de configuration du Dock"
       include_tasks: dock_setup.yml
 
+    - name: "📂 Lancer le playbook de configuration du Finder"
+      include_tasks: finder_setup.yml
+
     - name: "🔁 Redémarrer le Dock et Finder"
       command: killall Dock Finder
       ignore_errors: true  # Ignore l'erreur si le processus n'existe pas
