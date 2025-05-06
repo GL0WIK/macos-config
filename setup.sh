@@ -27,6 +27,6 @@ cd macos-config
 
 # 3️⃣ Lancer Ansible pour configurer le Mac
 echo "⚙️ Lancement d'Ansible pour appliquer la configuration..."
-ansible-playbook mac_setup.yml --ask-become-pass -v
+ansible-playbook mac_setup.yml --ask-become-pass -vv
 
 echo "✅ Configuration terminée ! Redémarre ton Mac pour appliquer tous les changements."
